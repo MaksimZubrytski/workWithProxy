@@ -26,8 +26,8 @@ let library = new Proxy([
       }
     },
     set(array, prop, value) {
-        if (typeof value == 'object' && value.label) {
-            let nameBookSmallLetter = value.label.toLowerCase();
+        if (typeof value === 'string') {
+            let nameBookSmallLetter = value.toLowerCase();
             array[prop] = {label: nameBookSmallLetter};
             return true;
           } else {
@@ -36,4 +36,4 @@ let library = new Proxy([
         }
     }
   );
-  
+
