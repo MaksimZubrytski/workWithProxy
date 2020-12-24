@@ -31,7 +31,7 @@ let library = new Proxy([
             array[prop] = {label: nameBookSmallLetter};
             return true;
           } else {
-            return false;
+            return value;
           }
         }
     }
