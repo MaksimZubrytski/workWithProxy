@@ -1,20 +1,20 @@
-let products = new Proxy([
+let library = new Proxy([
     { label: 'красная шапочка'},
     { label: 'колобок'},
     { label: 'теремок'}
   ],
   {
-    get: function(obj, prop) {
+    get: function(array, prop) {
     // Получение книги по числу
-      if (prop in obj) {
-        return obj[prop];
+      if (prop in array) {
+        return array[prop];
       }
   
       let result;
   
-      for (let product of obj) {
-        if (product.label === prop) {
-          result = product.label;
+      for (let book of array) {
+        if (book.label === prop) {
+          result = book.label;
         }
       }
       // Получение книги по имени
@@ -25,10 +25,10 @@ let products = new Proxy([
           return alert('Книга отсутствует')
       }
     },
-    set(mass, prop, value) {
+    set(array, prop, value) {
         if (typeof value == 'object' && value.label) {
             let nameBookSmallLetter = value.label.toLowerCase();
-            mass[prop] = {label: nameBookSmallLetter};
+            array[prop] = {label: nameBookSmallLetter};
             return true;
           } else {
             return false;
