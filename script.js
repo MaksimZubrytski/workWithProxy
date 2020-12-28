@@ -4,11 +4,12 @@ let library = new Proxy([
   { label: "теремок"}
   ],
   {
-    get: function(array, prop) {
-        // Получение книги по числу
+    get(array, prop) {
+        
       if (prop in array) {
         return array[prop];
       }
+      
       let result;
 
       for (let book of array) {
@@ -17,7 +18,7 @@ let library = new Proxy([
           break;
         }
       }
-        // Получение книги по имени
+      
       if (result) {
         return result.split(" ")
         .map(letter => letter[0].toUpperCase() + letter.substring(1))
@@ -25,18 +26,21 @@ let library = new Proxy([
       }
 
       return alert("Книга отсутствует");
-
     },
     set(array, prop, value) {
 
       if (typeof value === "string") {
         const bookLabelInSmallLetters = value.toLowerCase();
-        array[prop] = {label: bookLabelInSmallLetters};
-        return true;
-      } else {
-        return value;
-      }
-    }
-  }
-);
 
+        array[prop] = {label: bookLabelInSmallLetters};
+      }
+
+      return true;
+      },
+      deleteProperty(array, prop) {
+        delete array[prop];
+        array.length = array.length - 1;
+        return true
+      }
+  }
+  );
